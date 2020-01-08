@@ -1,0 +1,41 @@
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+</style>
+
+<%= link_to "New Post", posts_new_path %>
+
+<br><br>
+
+<table style="width:100%">
+    <tr>
+        <th>Title</th>
+        <th>Body</th>
+        <th>Created At</th>
+        <th>Actions</th>
+    </tr>
+
+    <% @post_data.each do |posts| %>
+        <tr>
+            <td>
+                <%= posts.title %>
+            </td>
+
+            <td>
+                <%= posts.body %>
+            </td>
+
+            <td>
+                <%= posts.created_at %>
+            </td>
+
+            <td>
+                <%= link_to "show", posts %> <br>
+                <%= link_to "edit", edit_post_path(posts) %> <br>
+                <%= link_to "delete", delete_post_path(posts), method: :delete %>
+            </td>
+        </tr>
+    <% end %>
+</table>
