@@ -14,8 +14,8 @@ class PostController < ApplicationController
     def create
         @post_data = Post.new(post_params)
         if @post_data.save
-            #redirect_to posts_path
-            redirect_to post_index_path
+            redirect_to posts_path
+            #redirect_to post_index_path
         else
             render :new
         end
@@ -26,6 +26,7 @@ class PostController < ApplicationController
     end
 
     def edit
+        # p params[:id]
         @post_edit_data = Post.find(params[:id]);
 
         Rails.logger.debug("My object: #{@post_edit_data.inspect}");
@@ -33,9 +34,10 @@ class PostController < ApplicationController
 
     def update
         @post_update_data = Post.find(params[:id]);
+
         if @post_update_data.update(post_params)
-            #redirect_to posts_path
-            redirect_to post_index_path
+            redirect_to posts_path
+            #redirect_to post_index_path
         else
             render :new
         end
@@ -45,8 +47,8 @@ class PostController < ApplicationController
         @post_delete_data = Post.find(params[:id]);
         @post_delete_data.destroy
 
-        #redirect_to posts_path
-        redirect_to post_index_path
+        redirect_to posts_path
+        #redirect_to post_index_path
     end
 
     protected

@@ -1,6 +1,6 @@
 <h1>Edit Post</h1>
 
-<%= simple_form_for(@post_edit_data) do |f| %>
+<%= simple_form_for @post_edit_data, url: edit_post_path do |f| %>
 
 <%= f.input :title %> <br>
 
