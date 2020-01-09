@@ -5,7 +5,7 @@
     }
 </style>
 
-<%= link_to "New Post", posts_new_path %>
+<%= link_to "New Post", new_post_path %>
 
 <br><br>
 
@@ -16,7 +16,7 @@
         <th>Created At</th>
         <th>Actions</th>
     </tr>
-
+    <% if @post_data.present? %>
     <% @post_data.each do |posts| %>
         <tr>
             <td>
@@ -32,10 +32,12 @@
             </td>
 
             <td>
-                <%= link_to "show", posts %> <br>
+                <%#= link_to "show", posts %> <br>
                 <%= link_to "edit", edit_post_path(posts) %> <br>
-                <%= link_to "delete", delete_post_path(posts), method: :delete %>
+                <%= link_to "delete", post_path(posts), method: :delete %>
             </td>
         </tr>
+    <% end %>
+    <% else %>
     <% end %>
 </table>

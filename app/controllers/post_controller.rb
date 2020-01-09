@@ -1,37 +1,21 @@
 class PostController < ApplicationController
     before_action :configure_permitted_parameters, if: :devise_controller?
 
-    protected
-    def configure_permitted_parameters
-        devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password])
-    end
-
-    def configure_permitted_parameters
-        devise_parameter_sanitizer.permit(:sign_in) do |user_params|
-            user_params.permit(:username, :email)
-        end
-    end
-
-    def configure_permitted_parameters
-        devise_parameter_sanitizer.permit(:sign_up) do |user_params|
-            user_params.permit({ roles: [] }, :email, :password, :password_confirmation)
-        end
-    end
-
     def index
         @post_data = Post.all.order("created_at DESC");
         #p @post_data
     end
 
     def new
-        user_signed_in?
-        @post = Post.new();
+        #@post = Post.new
+        #@post = (Post.new) 
     end
 
     def create
-        @post = Post.new(post_params)
-        if @post.save
-            redirect_to posts_path
+        @post_data = Post.new(post_params)
+        if @post_data.save
+            #redirect_to posts_path
+            redirect_to post_index_path
         else
             render :new
         end
@@ -50,7 +34,8 @@ class PostController < ApplicationController
     def update
         @post_update_data = Post.find(params[:id]);
         if @post_update_data.update(post_params)
-            redirect_to posts_path
+            #redirect_to posts_path
+            redirect_to post_index_path
         else
             render :new
         end
@@ -60,7 +45,25 @@ class PostController < ApplicationController
         @post_delete_data = Post.find(params[:id]);
         @post_delete_data.destroy
 
-        redirect_to posts_path
+        #redirect_to posts_path
+        redirect_to post_index_path
+    end
+
+    protected
+    def configure_permitted_parameters
+        devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password])
+    end
+
+    def configure_permitted_parameters
+        devise_parameter_sanitizer.permit(:sign_in) do |user_params|
+            user_params.permit(:username, :email)
+        end
+    end
+
+    def configure_permitted_parameters
+        devise_parameter_sanitizer.permit(:sign_up) do |user_params|
+            user_params.permit({ roles: [] }, :email, :password, :password_confirmation)
+        end
     end
 
     private
