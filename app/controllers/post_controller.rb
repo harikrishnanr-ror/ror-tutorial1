@@ -2,6 +2,7 @@ class PostController < ApplicationController
     before_action :configure_permitted_parameters, if: :devise_controller?
 
     def index
+        user_signed_in?
         @post_data = Post.all.order("created_at DESC");
         #p @post_data
     end

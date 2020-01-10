@@ -1,11 +1,13 @@
-<h1>Edit Post</h1>
+<div class="container">
+    <h5>Edit Post</h5>
 
-<%= simple_form_for @post_edit_data, url: edit_post_path do |f| %>
+    <%= simple_form_for @post_edit_data, url: edit_post_path do |f| %>
 
-<%= f.input :title %> <br>
+    <%= f.input :title %> <br>
 
-<%= f.input :body %> <br>
+    <%= f.input :body %> <br>
 
-<%= f.submit %>
+    <%= f.submit :class=>'btn btn-primary' %>
 
-<% end %>
+    <% end %>
+</div>
