@@ -1,9 +1,12 @@
 class PostController < ApplicationController
-    before_action :configure_permitted_parameters, if: :devise_controller?
+    before_action :configure_permitted_parameters, :authenticate_user!, if: :devise_controller?
 
     def index
-        user_signed_in?
-        @post_data = Post.all.order("created_at DESC");
+        if(user_signed_in?)
+            @post_data = Post.all.order("created_at DESC");
+        else
+            #render :new_user_session
+        end
         #p @post_data
     end
 
@@ -13,12 +16,16 @@ class PostController < ApplicationController
     end
 
     def create
-        @post_data = Post.new(post_params)
-        if @post_data.save
-            redirect_to posts_path
-            #redirect_to post_index_path
+        if(user_signed_in?)
+            @post_data = Post.new(post_params)
+            if @post_data.save
+                redirect_to posts_path
+                #redirect_to post_index_path
+            else
+                render :new
+            end
         else
-            render :new
+            render :new_user_session
         end
     end
 
